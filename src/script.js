@@ -30,10 +30,52 @@ const pointLight = new THREE.PointLight(0xff9000, 0.5, 3)
 
 pointLight.position.set(1, -0.5, 1)
 
-scene.add(ambientLight, directionalLight, hemisphereLight, pointLight)
+const rectAreaLight = new THREE.RectAreaLight(0x4e00ff, 2, 1, 1)
+
+rectAreaLight.position.set(-1.5, 0, 1.5)
+
+const spotLight = new THREE.SpotLight(0x78ff00, 0.5, 10, Math.PI * 0.1, 0.25, 1)
+
+spotLight.position.set(0, 2, 3)
+
+scene.add(spotLight.target)
+
+spotLight.target.position.x = -1.75
+
+scene.add(
+  ambientLight,
+  directionalLight,
+  hemisphereLight,
+  pointLight,
+  rectAreaLight,
+  spotLight
+)
 
 gui.add(ambientLight, 'intensity').min(0).max(1).step(0.01)
 gui.add(directionalLight, 'intensity').min(0).max(1).step(0.01)
+
+//  Helpers
+
+const hemisphereLightHelper = new THREE.HemisphereLightHelper(
+  hemisphereLight,
+  0.2
+)
+scene.add(hemisphereLightHelper)
+
+const directiopnalLightHelper = new THREE.DirectionalLightHelper(
+  directionalLight,
+  0.2
+)
+scene.add(directiopnalLightHelper)
+
+const pointLightHelper = new THREE.PointLightHelper(pointLight, 0.2)
+scene.add(pointLightHelper)
+
+const spotLightHelper = new THREE.SpotLightHelper(spotLight)
+scene.add(spotLightHelper)
+
+const spotLightHelper = new THREE.SpotLightHelper(spotLight)
+scene.add(spotLightHelper)
 
 /**
  * Objects
